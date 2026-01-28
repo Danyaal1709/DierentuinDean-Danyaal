@@ -1,0 +1,39 @@
+@model Dierentuin.Models.Enclosure
+
+@{
+    ViewData["Title"] = "Check Constraints - " + Model.Name;
+}
+
+<div class="glassmorphism-card p-4 mb-4">
+    <h1 class="text-gradient-teal mb-4">🔍 Check Constraints</h1>
+    <h4 class="text-light mb-3">Enclosure: @Model.Name</h4>
+    
+    <div class="constraints-list mt-4">
+        @if (ViewBag.Constraints != null)
+        {
+            @foreach (var constraint in ViewBag.Constraints)
+            {
+                <div class="constraint-item mb-2 p-3 rounded">
+                    @Html.Raw(constraint)
+                </div>
+            }
+        }
+        else
+        {
+            <p class="text-muted">No constraints to display.</p>
+        }
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-gradient me-2">Back to Details</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+<style>
+    .constraint-item {
+        background: rgba(255, 255, 255, 0.05);
+        border-left: 4px solid var(--accent-teal);
+        font-size: 1.1rem;
+    }
+</style>

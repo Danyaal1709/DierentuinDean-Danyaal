@@ -1,0 +1,48 @@
+@model Dierentuin.Models.Zoo
+
+@{
+    // Set the page title dynamically
+    ViewData["Title"] = "Edit Zoo";
+}
+
+<h1>Edit Zoo</h1>
+
+<!-- Section for editing Zoo information -->
+<h4>Zoo Information</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!-- Form for editing Zoo details -->
+        <form asp-action="Edit">
+            <!-- Display validation errors (if any) -->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Hidden field for Zoo ID to ensure correct identification during submission -->
+            <input type="hidden" asp-for="Id" />
+
+            <!-- Input field for Zoo Name -->
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Zoo Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Save button for submitting changes -->
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Navigation link to return to the Zoo list -->
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    <!-- Include validation scripts for client-side validation -->
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

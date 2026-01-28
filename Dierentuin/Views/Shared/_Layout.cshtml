@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dierentuin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="wrapper">
+        <header class="main-header">
+            <div class="container-fluid">
+                <div class="header-content">
+                    <h1 class="site-title">Dierentuin Management</h1>
+                    <nav class="main-nav">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item">Home</a>
+                        <a asp-area="" asp-controller="Animals" asp-action="Index" class="nav-item">Animals</a>
+                        <a asp-area="" asp-controller="Categories" asp-action="Index" class="nav-item">Categories</a>
+                        <a asp-area="" asp-controller="Enclosures" asp-action="Index" class="nav-item">Enclosures</a>
+                        <a asp-area="" asp-controller="Zoos" asp-action="Index" class="nav-item">Zoos</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy" class="nav-item">Privacy</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

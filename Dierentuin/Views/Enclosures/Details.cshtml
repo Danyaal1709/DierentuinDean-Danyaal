@@ -1,0 +1,99 @@
+@model Dierentuin.Models.Enclosure
+
+@{
+    ViewData["Title"] = "Enclosure Details";
+}
+
+<h1>Enclosure Details</h1>
+
+<div>
+    <h4>Enclosure</h4>
+    <hr />
+    <dl class="row">
+        <!-- Display enclosure ID -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <!-- Display enclosure name -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <!-- Display enclosure climate -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Climate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Climate)
+        </dd>
+        <!-- Display enclosure habitat type -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HabitatType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HabitatType)
+        </dd>
+        <!-- Display enclosure security level -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SecurityLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SecurityLevel)
+        </dd>
+        <!-- Display enclosure size -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Size) m�
+        </dd>
+        <!-- Display zoo name and ID -->
+        @if (Model.Zoo != null)
+        {
+            <dt class="col-sm-2">
+                Zoo Name (ID: @Model.Zoo.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @(Model.Zoo.Name ?? "Unknown")
+            </dd>
+        }
+    </dl>
+</div>
+
+<div>
+    <h4>Animals in this Enclosure</h4>
+    <ul>
+        <!-- Display list of animals in this enclosure -->
+        @foreach (var animal in Model.Animals)
+        {
+            <li>@animal.Id - @animal.Name</li>
+        }
+    </ul>
+</div>
+
+<!-- Action buttons -->
+<div class="mt-4 mb-3">
+    <h5 class="text-light mb-3">Actions</h5>
+    <div class="btn-group" role="group">
+        <a asp-action="Sunrise" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Sunrise</a>
+        <a asp-action="Sunset" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Sunset</a>
+        <a asp-action="FeedingTime" asp-route-id="@Model.Id" class="btn btn-gradient me-2">??? Feeding Time</a>
+        <a asp-action="CheckConstraints" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Check Constraints</a>
+    </div>
+</div>
+
+<!-- Links to edit the enclosure and go back to the list -->
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+
+
+
+

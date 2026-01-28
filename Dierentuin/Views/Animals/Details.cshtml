@@ -1,0 +1,52 @@
+@model Dierentuin.Models.Animal
+
+@{
+    ViewData["Title"] = "Animal Details";
+}
+
+<h1>Animal Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2">ID</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Id)</dd>
+
+            <dt class="col-sm-2">Name</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Name)</dd>
+
+            <dt class="col-sm-2">Species</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Species)</dd>
+
+            <dt class="col-sm-2">Category</dt>
+            <dd class="col-sm-10">@(Model.Category?.Name ?? "None") (ID: @Model.CategoryId)</dd>
+
+            <dt class="col-sm-2">Size</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Size)</dd>
+
+            <dt class="col-sm-2">Dietary Class</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.DietaryClass)</dd>
+
+            <dt class="col-sm-2">Activity Pattern</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.ActivityPattern)</dd>
+
+            <dt class="col-sm-2">Prey</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.Prey)</dd>
+
+            <dt class="col-sm-2">Enclosure</dt>
+            <dd class="col-sm-10">@(Model.Enclosure?.Name ?? "None") (ID: @Model.EnclosureId)</dd>
+
+            <dt class="col-sm-2">Space Requirement</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.SpaceRequirement) m²</dd>
+
+            <dt class="col-sm-2">Security Requirement</dt>
+            <dd class="col-sm-10">@Html.DisplayFor(model => model.SecurityRequirement)</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="CheckConstraints" asp-route-id="@Model.Id" class="btn btn-info">Check Constraints</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

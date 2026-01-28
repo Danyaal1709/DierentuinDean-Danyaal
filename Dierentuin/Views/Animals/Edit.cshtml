@@ -1,0 +1,94 @@
+@model Dierentuin.Models.Animal
+
+@{
+    ViewData["Title"] = "Edit Animal";
+}
+
+<h1>Edit Animal</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Species" class="form-label"></label>
+                <input asp-for="Species" class="form-control" />
+                <span asp-validation-for="Species" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Category</label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Size" class="form-label"></label>
+                <select asp-for="Size" class="form-select" asp-items="@(new SelectList(ViewBag.Sizes))"></select>
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DietaryClass" class="form-label"></label>
+                <select asp-for="DietaryClass" class="form-select" asp-items="@(new SelectList(ViewBag.DietaryClasses))"></select>
+                <span asp-validation-for="DietaryClass" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ActivityPattern" class="form-label"></label>
+                <select asp-for="ActivityPattern" class="form-select" asp-items="@(new SelectList(ViewBag.ActivityPatterns))"></select>
+                <span asp-validation-for="ActivityPattern" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="EnclosureId" class="form-label">Enclosure</label>
+                <select asp-for="EnclosureId" class="form-select" asp-items="ViewBag.EnclosureId">
+                    <option value="">-- Select Enclosure --</option>
+                </select>
+                <span asp-validation-for="EnclosureId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SpaceRequirement" class="form-label"></label>
+                <div class="input-group">
+                    <input asp-for="SpaceRequirement" class="form-control" type="number" step="any" />
+                    <span class="input-group-text">m²</span>
+                </div>
+                <span asp-validation-for="SpaceRequirement" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SecurityRequirement" class="form-label"></label>
+                <select asp-for="SecurityRequirement" class="form-select" asp-items="@(new SelectList(ViewBag.SecurityRequirements))"></select>
+                <span asp-validation-for="SecurityRequirement" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Prey" class="form-label"></label>
+                <input asp-for="Prey" class="form-control" />
+                <span asp-validation-for="Prey" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

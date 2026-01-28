@@ -1,0 +1,80 @@
+@model Dierentuin.Models.Zoo
+
+@{
+    // Set the page title dynamically
+    ViewData["Title"] = "Zoo Details";
+}
+
+<h1>Zoo Details</h1>
+
+<!-- Display Zoo Details -->
+<div>
+    <h4>Zoo Information</h4>
+    <hr />
+    <dl class="row">
+        <!-- Display Zoo ID -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <!-- Display Zoo Name -->
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+
+<!-- Display Enclosures in the Zoo (only if available) -->
+@if (Model.Enclosures != null && Model.Enclosures.Any())
+{
+    <div>
+        <h4>Enclosures in this Zoo</h4>
+        <ul>
+            @foreach (var enclosure in Model.Enclosures)
+            {
+                <li>@enclosure.Id - @enclosure.Name</li>
+            }
+        </ul>
+    </div>
+}
+
+<!-- Display Animals in the Zoo (only if available) -->
+@if (Model.Enclosures != null && Model.Enclosures.Any(e => e.Animals.Any()))
+{
+    <div>
+        <h4>Animals in this Zoo</h4>
+        <ul>
+            @foreach (var enclosure in Model.Enclosures)
+            {
+                @foreach (var animal in enclosure.Animals)
+                {
+                    <li>@animal.Id - @animal.Name</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+<!-- Action buttons -->
+<div class="mt-4 mb-3">
+    <h5 class="text-light mb-3">Actions</h5>
+    <div class="btn-group" role="group">
+        <a asp-action="Sunrise" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Sunrise</a>
+        <a asp-action="Sunset" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Sunset</a>
+        <a asp-action="FeedingTime" asp-route-id="@Model.Id" class="btn btn-gradient me-2">??? Feeding Time</a>
+        <a asp-action="CheckConstraints" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Check Constraints</a>
+        <a asp-action="AutoAssign" asp-route-id="@Model.Id" class="btn btn-gradient me-2">?? Auto Assign</a>
+    </div>
+</div>
+
+<!-- Navigation links for editing or returning to the list -->
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

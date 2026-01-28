@@ -1,0 +1,49 @@
+@model Dierentuin.Models.Zoo
+
+@{
+    ViewData["Title"] = "Actions - " + Model.Name;
+    var actionType = ViewContext.RouteData.Values["action"]?.ToString() ?? "Actions";
+}
+
+<div class="glassmorphism-card p-4 mb-4">
+    <h1 class="text-gradient-teal mb-4">
+        @if (actionType == "Sunrise")
+        {
+            <text>🌅 Sunrise Actions</text>
+        }
+        else if (actionType == "Sunset")
+        {
+            <text>🌇 Sunset Actions</text>
+        }
+        else if (actionType == "FeedingTime")
+        {
+            <text>🍽️ Feeding Time</text>
+        }
+        else
+        {
+            <text>⚡ Actions</text>
+        }
+    </h1>
+    <h4 class="text-light mb-3">Zoo: @Model.Name</h4>
+    
+    <div class="actions-list mt-4">
+        @if (ViewBag.Actions != null && ViewBag.Actions.Count > 0)
+        {
+            <ul class="list-group">
+                @foreach (var action in ViewBag.Actions)
+                {
+                    <li class="list-group-item glassmorphism-card mb-2">@action</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">No animals in this zoo.</p>
+        }
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-gradient me-2">Back to Details</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+@{
+    ViewData["Title"] = "Home";
+    var stats = ViewBag.Stats as dynamic;
+}
+
+<div class="text-center mb-4">
+    <h1>Welcome to Dierentuin Management System</h1>
+    <p class="lead">A simple zoo management application built with ASP.NET Core MVC</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Animals</h5>
+                <h3>@(stats?.TotalAnimals ?? 0)</h3>
+                <a asp-controller="Animals" asp-action="Index" class="btn btn-primary">View Animals</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Enclosures</h5>
+                <h3>@(stats?.TotalEnclosures ?? 0)</h3>
+                <a asp-controller="Enclosures" asp-action="Index" class="btn btn-primary">View Enclosures</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Categories</h5>
+                <h3>@(stats?.TotalCategories ?? 0)</h3>
+                <a asp-controller="Categories" asp-action="Index" class="btn btn-primary">View Categories</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Zoos</h5>
+                <h3>@(stats?.TotalZoos ?? 0)</h3>
+                <a asp-controller="Zoos" asp-action="Index" class="btn btn-primary">View Zoos</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Animals" asp-action="Create" class="btn btn-success me-2">Add New Animal</a>
+                <a asp-controller="Enclosures" asp-action="Create" class="btn btn-success me-2">Add New Enclosure</a>
+                <a asp-controller="Categories" asp-action="Create" class="btn btn-success me-2">Add New Category</a>
+                <a asp-controller="Zoos" asp-action="Create" class="btn btn-success">Add New Zoo</a>
+            </div>
+        </div>
+    </div>
+</div>

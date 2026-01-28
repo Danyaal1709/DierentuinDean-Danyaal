@@ -1,0 +1,116 @@
+@model IEnumerable<Dierentuin.Models.Animal>
+
+@{
+    ViewData["Title"] = "Animals";
+}
+
+<h1>Animals</h1>
+
+<div class="row mb-3">
+    <div class="col-md-8">
+        <form asp-action="Filter" method="get" class="d-flex">
+            <input type="text" name="searchString" class="form-control me-2" placeholder="Search animals..." />
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <div class="col-md-4 text-end">
+        <a asp-action="Create" class="btn btn-success">Create New</a>
+    </div>
+</div>
+
+<div class="mb-3">
+    <button id="sunriseButton" class="btn btn-primary btn-sm">Sunrise</button>
+    <button id="sunsetButton" class="btn btn-secondary btn-sm">Sunset</button>
+    <button id="feedingTimeButton" class="btn btn-success btn-sm">Feeding Time</button>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Category</th>
+            <th>Size</th>
+            <th>Diet</th>
+            <th>Activity</th>
+            <th>Enclosure</th>
+            <th>Space (m²)</th>
+            <th>Security</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="animal-row" data-activity-pattern="@item.ActivityPattern">
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Species)</td>
+                <td>@(item.Category?.Name ?? "None")</td>
+                <td>@Html.DisplayFor(modelItem => item.Size)</td>
+                <td>@Html.DisplayFor(modelItem => item.DietaryClass)</td>
+                <td>@Html.DisplayFor(modelItem => item.ActivityPattern)</td>
+                <td>@(item.Enclosure?.Name ?? "None")</td>
+                <td>@Html.DisplayFor(modelItem => item.SpaceRequirement)</td>
+                <td>@Html.DisplayFor(modelItem => item.SecurityRequirement)</td>
+                <td class="action-cell">
+                    <span class="sunrise-action">@item.ActieSunrise()</span>
+                    <span class="sunset-action" style="display:none;">@item.ActieSunset()</span>
+                    <span class="feeding-time-action" style="display:none;">@item.ActieFeedingTime()</span>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.getElementById('sunriseButton').addEventListener('click', function () {
+            fetchActions('Sunrise');
+            document.querySelectorAll('.sunset-action, .feeding-time-action').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.sunrise-action').forEach(el => el.style.display = 'inline');
+        });
+
+        document.getElementById('sunsetButton').addEventListener('click', function () {
+            fetchActions('Sunset');
+            document.querySelectorAll('.sunrise-action, .feeding-time-action').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.sunset-action').forEach(el => el.style.display = 'inline');
+        });
+
+        document.getElementById('feedingTimeButton').addEventListener('click', function () {
+            fetchActions('FeedingTime');
+            document.querySelectorAll('.sunrise-action, .sunset-action').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('.feeding-time-action').forEach(el => el.style.display = 'inline');
+        });
+
+        function fetchActions(actionType) {
+            fetch(`/api/AnimalsApi/${actionType}`)
+                .then(response => response.json())
+                .then(data => {
+                    var rows = document.querySelectorAll('.animal-row');
+                    rows.forEach(function (row) {
+                        var name = row.querySelector('td:first-child').innerText;
+                        var actionCell = row.querySelector('.action-cell');
+                        var action = data.find(d => d.name === name)?.action || '';
+                        
+                        if (actionType === 'Sunrise') {
+                            actionCell.innerHTML = `<span class="sunrise-action">${action}</span>`;
+                        } else if (actionType === 'Sunset') {
+                            actionCell.innerHTML = `<span class="sunset-action">${action}</span>`;
+                        } else if (actionType === 'FeedingTime') {
+                            actionCell.innerHTML = `<span class="feeding-time-action">${action}</span>`;
+                        }
+                    });
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchActions('Sunrise');
+        });
+    </script>
+}

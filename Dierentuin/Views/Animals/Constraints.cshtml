@@ -1,0 +1,35 @@
+@model Dierentuin.Models.Animal
+
+@{
+    ViewData["Title"] = "Check Constraints - " + Model.Name;
+}
+
+<h1>Check Constraints</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Animal: @Model.Name</h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Constraints != null)
+        {
+            <ul class="list-unstyled">
+                @foreach (var constraint in ViewBag.Constraints)
+                {
+                    <li class="mb-2 p-2" style="border-left: 3px solid #3498db; padding-left: 10px;">
+                        @Html.Raw(constraint)
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>No constraints to display.</p>
+        }
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">Back to Details</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
