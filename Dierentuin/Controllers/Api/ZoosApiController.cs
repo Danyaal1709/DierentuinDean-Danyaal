@@ -181,7 +181,7 @@ namespace Dierentuin.Controllers.Api
                 return NotFound();
             }
 
-            // Get all animals (including those not yet assigned)
+            // Get all animals 
             var allAnimals = await _context.Animal.ToListAsync();
 
             if (clearExisting)
