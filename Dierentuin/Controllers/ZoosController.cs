@@ -282,7 +282,7 @@ namespace Dierentuin.Controllers
                 return NotFound();
             }
 
-            // Get all animals (including those not yet assigned)
+            // Get all animals 
             var allAnimals = await _context.Animal.ToListAsync();
 
             if (clearExisting)
@@ -316,7 +316,7 @@ namespace Dierentuin.Controllers
             // Get unassigned animals
             var unassignedAnimals = allAnimals.Where(a => a.EnclosureId == null).ToList();
 
-            // Group animals by security requirement for better assignment
+            // Group animals by security requirement 
             var animalsBySecurity = unassignedAnimals.GroupBy(a => a.SecurityRequirement).ToList();
 
             foreach (var securityGroup in animalsBySecurity)
@@ -324,7 +324,7 @@ namespace Dierentuin.Controllers
                 var securityLevel = securityGroup.Key;
                 var animalsInGroup = securityGroup.ToList();
 
-                // Try to assign to existing enclosures first
+                
                 var availableEnclosures = zoo.Enclosures
                     .Where(e => e.SecurityLevel >= securityLevel)
                     .OrderBy(e => e.Animals!.Sum(a => a.SpaceRequirement))
