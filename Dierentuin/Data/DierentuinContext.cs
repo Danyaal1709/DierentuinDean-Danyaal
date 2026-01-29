@@ -33,7 +33,7 @@ namespace Dierentuin.Data
             AddUniqueConstraints(modelBuilder);
         }
 
-        // Set up relationships between entities
+        
         private void ConfigureRelationships(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Enclosure>()
