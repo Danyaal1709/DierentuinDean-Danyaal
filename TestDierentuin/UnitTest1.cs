@@ -7,7 +7,7 @@ namespace TestDierentuin13
         [Fact]
         public void Test1()
         {
-            // Placeholder test
+            // Placeholder
             Assert.True(true);
         }
     }
