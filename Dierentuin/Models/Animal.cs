@@ -111,7 +111,7 @@
                     constraints.Add($"✅ Security requirement met: {SecurityRequirement} <= {Enclosure.SecurityLevel}");
                 }
 
-                // Check if category is assigned (optional but good practice)
+                // Check if category is assigned
                 if (Category == null)
                 {
                     constraints.Add("⚠️ No category assigned (optional)");
