@@ -16,7 +16,7 @@
         // Relationship with Enclosures
         public List<Enclosure> Enclosures { get; set; } = new List<Enclosure>();
 
-        // Method to get sunrise actions for all animals in all enclosures
+        // get sunrise actions for all animals in all enclosures
         public List<string> ActieSunrise()
         {
             var actions = new List<string>();
@@ -27,7 +27,7 @@
             return actions;
         }
 
-        // Method to get sunset actions for all animals in all enclosures
+        // get sunset actions for all animals in all enclosures
         public List<string> ActieSunset()
         {
             var actions = new List<string>();
@@ -38,7 +38,7 @@
             return actions;
         }
 
-        // Method to get feeding time actions for all animals in all enclosures
+        // get feeding time actions for all animals in all enclosures
         public List<string> ActieFeedingTime()
         {
             var actions = new List<string>();
@@ -49,7 +49,7 @@
             return actions;
         }
 
-        // Method to check if all constraints are satisfied for this zoo
+        // check if all constraints are satisfied for this zoo
         public List<string> CheckConstraints()
         {
             var constraints = new List<string>();
