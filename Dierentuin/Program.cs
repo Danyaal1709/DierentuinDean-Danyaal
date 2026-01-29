@@ -4,11 +4,11 @@ using Dierentuin.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-// Configure JSON options to handle circular references
+// Configure JSON options fot circular references
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -16,16 +16,16 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Configure the database context - Using SQL Server LocalDB
+// Configure the database context - SQL Server LocalDB
 builder.Services.AddDbContext<DierentuinContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DierentuinContext")));
 
-// Add the DataSeeder as a service
+// Add DataSeeder as service
 builder.Services.AddTransient<DataSeeder>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -43,32 +43,31 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
-app.MapControllers(); // Add this line to map API controllers
+app.MapControllers(); // Add to map API controllers
 
-// Seed the database
+// Seed database
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<DierentuinContext>();
     var seeder = services.GetRequiredService<DataSeeder>();
     
-    // Apply migrations - this is required per assignment requirements
-    // The database must be installable by running Update-Database
+    // Apply migrations
     try
     {
         context.Database.Migrate();
     }
     catch
     {
-        // If migrations fail (e.g., database doesn't exist or schema mismatch),
-        // drop and recreate, then apply migrations
+        // If migrations fail
+        // drop and recreate, apply migrations
         try
         {
             if (context.Database.CanConnect())
             {
                 context.Database.EnsureDeleted();
             }
-            // Wait a moment for database to be fully deleted
+            // Wait for database to be fully deleted
             System.Threading.Thread.Sleep(500);
             context.Database.Migrate();
         }
@@ -81,7 +80,7 @@ using (var scope = app.Services.CreateScope())
             }
             catch
             {
-                // If all else fails, log but continue
+                // If fails, log but continue
             }
         }
     }
