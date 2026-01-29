@@ -256,7 +256,7 @@ namespace Dierentuin.Controllers
             return _context.Enclosure.Any(e => e.Id == id);
         }
 
-        // Helper method to populate ViewData for dropdown lists
+       
         private void PopulateViewData(Enclosure? enclosure = null)
         {
             ViewData["ZooId"] = new SelectList(_context.Zoo, "Id", "Name", enclosure?.ZooId ?? null);
