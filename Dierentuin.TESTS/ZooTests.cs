@@ -80,8 +80,7 @@ namespace Dierentuin.Tests
 
             // Assert
             Assert.NotNull(result);
-            // When zoo has no enclosures, constraints list is empty
-            // This is expected behavior
+            
         }
     }
 }
