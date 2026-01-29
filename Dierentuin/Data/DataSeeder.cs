@@ -96,12 +96,12 @@ namespace Dierentuin.Data
                 }
                 catch
                 {
-                    // Tables might not exist yet, which is fine
+
                 }
             }
             catch
             {
-                // If clearing fails, continue anyway - database might be new
+                
             }
         }
 
