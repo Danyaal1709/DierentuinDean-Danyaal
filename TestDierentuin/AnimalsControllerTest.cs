@@ -24,7 +24,7 @@ namespace TestDierentuin13
             _context = new DierentuinContext(options);
             _controller = new AnimalsController(_context);
 
-            // Seed the database
+            // Seed database
             var category = new Category { Name = "Mammal" };
             _context.Category.Add(category);
             _context.SaveChanges();
