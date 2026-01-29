@@ -67,13 +67,13 @@ using (var scope = app.Services.CreateScope())
             {
                 context.Database.EnsureDeleted();
             }
-            // Wait for database to be fully deleted
+            // Wait for database to be deleted
             System.Threading.Thread.Sleep(500);
             context.Database.Migrate();
         }
         catch
         {
-            // If migrations still fail, try to ensure database is created
+            // If migrations fail, ensure database is created
             try
             {
                 context.Database.EnsureCreated();
@@ -95,7 +95,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch
     {
-        // If seeding fails, continue anyway - app can still run
+        // If seeding fails, continue. app can still run
     }
 }
 
